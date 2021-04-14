@@ -88,7 +88,9 @@ internal fun Benchmark.loadJson() {
 private fun statsFile(name: String, extension: String) =
     pathToResource("stats${statFilePrefix(name)}.$extension").absoluteFile
 
-internal fun pathToResource(resource: String) = File(KotlinRoot.DIR, "../out/$resource").canonicalFile
+internal fun pathToResource(resource: String) = File(KotlinRoot.DIR, "../out/$resource").canonicalFile.also {
+    it.parentFile?.mkdirs()
+}
 
 internal fun statFilePrefix(name: String) = if (name.isNotEmpty()) "-${plainname(name)}" else ""
 
